@@ -1,0 +1,35 @@
+    public static void main(String[] args) {
+
+        int x=10;
+        int y=15;
+        boolean[][] array=new boolean[x][y];
+
+        for (int i=1;i<=x;i++)
+            for (int j=1;j<=y;j++)
+                array[i-1][j-1]=StdRandom.uniform()>0.5;
+        for(int i=0;i<x;i++){
+           if(i==0){                
+               print_index_row(y);
+          }
+            print_row(i,array[i]);
+        }
+        for(int i=0;i<y;i++){
+            if(i==0){
+                print_index_row(x);
+            }
+            print_row_pivoted(i,array);
+        }
+    }
+
+    private static void print_row(int i, boolean[] booleans) {
+        System.out.print((i+1)+"\t");
+        for(int j=0;j<booleans.length;j++)
+        System.out.print((booleans[j]?"*":"_")+"\t");
+        System.out.println();
+    }
+    private static void print_row_pivoted(int i, boolean[][] booleans) {
+        System.out.print((i+1)+"\t");
+        for(int j=0;j<booleans.length;j++)
+            System.out.print((booleans[j][i]?"*":"_")+"\t");
+        System.out.println();
+    }
