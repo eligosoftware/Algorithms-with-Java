@@ -1,0 +1,21 @@
+public static void main(String[] args) {
+
+        In in = new In(args[0]);
+        int[] whitelist = in.readAllInts();
+        boolean dir=args[1].equals("-");
+
+        // sort the array
+        Arrays.sort(whitelist);
+        // read integer key from standard input; print if not in whitelist
+        while (!StdIn.isEmpty()) {
+            int key = StdIn.readInt();
+            if(dir) {
+                if (BinarySearch.indexOf(whitelist, key) == -1)
+                    StdOut.println(key);
+            }
+            else {
+                if (BinarySearch.indexOf(whitelist, key) != -1)
+                    StdOut.println(key);
+            }
+        }
+    }
