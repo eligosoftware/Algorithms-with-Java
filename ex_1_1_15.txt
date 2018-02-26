@@ -1,28 +1,23 @@
-  private static int[] histogram(int[] values,int M){
-
-        int[] result=new int[M];
-        int index=0;
-
-            for(int j=0;j<values.length &&j<=M;j++){
-                int count=1;
-                for(int k=0;k<values.length;k++){
-                    if(values[j]==values[k] && k!=j) {
-                        count++;
-                    }
-                }
-                result[index]=count;
-                if(index>M-1)
-                    break;
-                else
-                    index++;
-            }
-
-
-        return  result;
-    }
 
  public static void main(String[] args) {
 
         int[] my_array={1,5,7,8,9,7,4,5,9,7};
         System.out.println(Arrays.toString(histogram(my_array,10)));
+    }
+
+    private static int[] histogram(int[] values,int M){
+
+        int[] result=new int[M];
+
+         for(int i=0;i<M;i++){
+
+             for(int j=0;j<values.length;j++){
+                 if(i==values[j])
+                 result[i]+=1;
+             }
+
+         }
+
+
+        return  result;
     }

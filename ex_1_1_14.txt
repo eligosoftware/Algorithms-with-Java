@@ -1,0 +1,10 @@
+ private static int lg2(int N){
+
+        int count=0;
+        while(N>1)
+        {
+            N/=2;
+            count++;
+        }
+        return count;
+    }
