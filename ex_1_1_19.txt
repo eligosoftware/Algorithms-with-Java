@@ -1,0 +1,21 @@
+import java.math.BigInteger;
+private static BigInteger [] Fib=new BigInteger [100];
+
+   public static void main(String[] args) {
+
+
+        for (int N = 0; N < 100; N++)
+            StdOut.println(N + " " + F(N));
+    }	
+
+ public static BigInteger  F(int N)
+        {
+            if (N == 0) return BigInteger.valueOf(0);
+            if (N == 1) return BigInteger.valueOf(1);
+
+            if(Fib[N-1]==null)
+                Fib[N-1]=F(N-1);
+            if(Fib[N-2]==null)
+                Fib[N-2]=F(N-2);
+            return Fib[N-1].add(Fib[N-2]);
+        }
