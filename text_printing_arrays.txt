@@ -1,0 +1,51 @@
+
+    public static void main(String[] args) {
+        // write your code here
+        boolean[][] intros = new boolean[10][10];
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++) {
+                Random rand = new Random();
+
+                intros[i][j] = rand.nextBoolean();
+            }
+        for (int i = 0; i < 11; i++)
+            for (int j = 0; j < 11; j++) {
+
+                if (i == 0) {
+                    print(j, true, false);
+                    if (j == 10) {
+                        print(false, false, true);
+                    }
+                } else {
+                    if (j == 0) {
+                        print(i, true, false);
+                    } else {
+                        print(intros[i - 1][j - 1], true, false);
+                        if (j == 10) {
+                            System.out.println();
+                        }
+                    }
+                }
+
+
+            }
+    }
+
+
+    private static void print(boolean out, boolean print_tab, boolean print_ln) {
+        String out_s = (out) ? "*" : "_";
+        if (print_ln) {
+            System.out.println();
+        } else {
+            System.out.print(out_s + ((print_tab) ? "\t" : ""));
+        }
+    }
+
+    private static void print(int out, boolean print_tab, boolean print_ln) {
+
+        if (print_ln) {
+            System.out.println();
+        } else {
+            System.out.print(String.valueOf(out) + ((print_tab) ? "\t" : ""));
+        }
+    }

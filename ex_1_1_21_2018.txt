@@ -1,0 +1,104 @@
+class TableRov{
+    public String name;
+    public int firstValue;
+    public int secondValue;
+
+    public TableRov(String name, int firstValue, int secondValue) {
+        this.name = name;
+        this.firstValue = firstValue;
+        this.secondValue = secondValue;
+    }
+}
+public class Main {
+
+    static long[] F=new long[100000000];
+    static final int N_W=15;
+    static final int F_W=1;
+    static final int S_W=1;
+    static final int L_W=1;
+
+
+
+    public static void main(String[] args) {
+	// write your code here
+
+
+
+
+
+        String input;
+        ArrayList<TableRov> arr=new ArrayList();
+        while (true){
+            input=StdIn.readLine();
+            if(input.equals("q")) break;
+            String[] in=input.split(" ");
+
+            if(in.length<3)
+            {
+                System.out.println("There must be at least 3 words!");
+                break;
+            }
+            arr.add(new TableRov(in[0],Integer.parseInt(in[1]),Integer.parseInt(in[2])));
+
+        }
+        for(TableRov t:arr) {
+            print_tabular_row(t);
+           }
+
+
+    }
+ static void print_tabular_row(TableRov t){
+        String division=(String.format("%.3f",t.firstValue*1.0/t.secondValue));
+
+
+        double rows_count=Math.max(Math.max(Math.ceil(t.name.length()*1.0/N_W),Math.ceil(String.valueOf(t.firstValue).length()*1.0/F_W)),
+                            Math.max(Math.ceil(String.valueOf(t.secondValue).length()*1.0/S_W),Math.ceil(String.valueOf(division).length()*1.0/L_W)));
+        String output1="";
+                String output2="";
+                String output3="";
+        String output4="";
+        String output="";
+
+
+        for(int i=0;i<rows_count;i++){
+
+               if(t.name.length()<N_W){
+                    output1=(i==0)?t.name:"";
+                }
+                else {
+                    output1=(Math.ceil(t.name.length()/N_W)>=i)?t.name.substring(i*N_W,Math.min((i+1)*N_W,t.name.length())):"";
+                }
+
+                if(String.valueOf(t.firstValue).length()<F_W){
+                    output2=(i==0)?String.valueOf(t.firstValue):"";
+                }
+                else {
+                    output2=(Math.ceil(String.valueOf(t.firstValue).length()/F_W)>=i)?String.valueOf(t.firstValue).substring(i*F_W,Math.min((i+1)*F_W,String.valueOf(t.firstValue).length())):"";
+                }
+
+                if(String.valueOf(t.secondValue).length()<S_W){
+                    output3=(i==0)?String.valueOf(t.secondValue):"";
+                }
+                else {
+                    output3=(Math.ceil(String.valueOf(t.secondValue).length()/S_W)>=i)?String.valueOf(t.secondValue).substring(i*S_W,Math.min((i+1)*S_W,String.valueOf(t.secondValue).length())):"";
+                }
+            if(String.valueOf(division).length()<L_W){
+                output4=(i==0)?String.valueOf(division):"";
+            }
+            else {
+                output4=(Math.ceil(String.valueOf(division).length()/L_W)>=i)?String.valueOf(division).substring(i*L_W,Math.min((i+1)*L_W,String.valueOf(division).length())):"";
+            }
+
+            output="|%-N_Ws|%-F_Ws|%-S_Ws|%-L_Ws|\n";
+            output=output.replace("N_W",String.valueOf(N_W));
+            output=output.replace("F_W",String.valueOf(F_W));
+            output=output.replace("S_W",String.valueOf(S_W));
+            output=output.replace("L_W",String.valueOf(L_W));
+
+
+            System.out.printf(output,output1,output2,output3,output4);
+
+            }
+
+     }
+}
