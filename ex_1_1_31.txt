@@ -1,0 +1,44 @@
+ public static void main(String[] args) {
+
+        int N = 20;
+        double p=0.4;
+       StdDraw.setXscale(-50, 50);
+      StdDraw.setYscale(-50, 50);
+        StdDraw.setPenRadius(.02);
+
+        double r=25;
+        double xa=5;
+        double yb=5;
+        double[] xs=new double[N];
+        double[] ys=new double[N];
+
+        for(int i =0;i<N;i++){
+            xs[i]=r*Math.cos(rad(i*360/N,0));
+            ys[i]=r*Math.sin(rad(i*360/N,0));
+
+            StdDraw.point(xs[i],ys[i]);
+        }
+        StdDraw.setPenRadius(.005);
+        for(int i=0;i<N;i++)
+            for (int j=0;j<N &&i!=j;j++)
+            {
+                //links[i][j]= StdRandom.uniform(0,1)>p
+
+                Random rand=new Random();
+                double rand_value=rand.nextFloat();
+                if(rand_value<p) {
+                    StdDraw.line(xs[i],ys[i],xs[j],ys[j]);
+                }
+            }
+
+    }
+
+    private static double rad(double in, int i){
+        if(i==0){ // deq to rad
+            return in* Math.PI /180;
+        }
+        else{
+            //rad to deg
+            return in*180/Math.PI;
+        }
+    }
