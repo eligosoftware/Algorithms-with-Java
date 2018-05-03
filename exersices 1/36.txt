@@ -1,0 +1,50 @@
+ public static void main(String[] args) {
+
+        System.out.print("Please enter number N:");
+        int N=StdIn.readInt();
+        System.out.print("Please enter number M:");
+        int M=StdIn.readInt();
+        System.out.println();
+        int[] array=new int[M];
+        int[][] shuffles=new int[M][M];
+        for(int i=0;i<N;i++){
+            initArray(array);
+            shuffle(array,shuffles);
+        }
+
+        for (int i = 0; i < M; i++)
+            for (int j = 0; j < M; j++) {
+
+                if (i == 0) {
+                    print(j, true, false);
+                    if (j == M-1) {
+                        print(false, false, true);
+                    }
+                } else {
+                    if (j == 0) {
+                        print(i, true, false);
+                    } else {
+                        print(shuffles[i - 1][j - 1], true, false);
+                        if (j == M-1) {
+                            System.out.println();
+                        }
+                    }
+
+    }}}
+
+    private static void initArray(int[] a){
+        for(int i=0;i<a.length;i++)
+            a[i]=i;
+    }
+    public static void shuffle(int[] a,int[][] shuffles)
+    {
+        int N = a.length;
+        for (int i = 0; i < N; i++)
+        { // Exchange a[i] with random element in a[i..N-1]
+            int r = 0 + StdRandom.uniform(N-i);
+            int temp = a[i];
+            shuffles[i][r]++;
+            a[i] = a[r];
+            a[r] = temp;
+        }
+    }
