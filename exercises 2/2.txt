@@ -1,0 +1,18 @@
+ public static void main(String[] args) {
+
+        int N =Integer.parseInt(args[0]);
+        Interval1D[] intervals=new Interval1D[N];
+        double min,max;
+        for(int i=0;i<N;i++){
+           min=StdIn.readDouble();
+           max=StdIn.readDouble();
+           intervals[i]=new Interval1D(min,max);
+       }
+        for(int i=0;i<N;i++){
+            for(int j=i+1;j<N;j++){
+                if(intervals[i].intersects(intervals[j]))
+                    System.out.println("Interval A "+intervals[i]+", interval B "+intervals[j]);
+            }
+        }
+
+    }
