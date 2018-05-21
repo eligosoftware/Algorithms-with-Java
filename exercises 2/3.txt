@@ -1,0 +1,61 @@
+    public static void main(String[] args) {
+
+        int N =Integer.parseInt(args[0]);
+        double min =Double.parseDouble(args[1]);
+        double max =Double.parseDouble(args[2]);
+        StdDraw.setScale(min,max);
+        double x1,y1,x2,y2;
+
+        MyInterval2D[] intervals=new MyInterval2D[N];
+        for(int i=0;i<N;i++){
+            x1=StdRandom.uniform(min,max);
+            y1=StdRandom.uniform(x1,max);
+            x2=StdRandom.uniform(min,max);
+            y2=StdRandom.uniform(x2,max);
+            Interval1D x=new Interval1D(x1,y1);
+            Interval1D y=new Interval1D(x2,y2);
+
+            MyInterval2D interval2D=new MyInterval2D(x,y);
+            intervals[i]=interval2D;
+            intervals[i].draw();
+
+       }
+
+
+       int intersect_count=0;
+        int contains_count=0;
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N && i!=j;j++){
+                if(intervals[i].intersects(intervals[j]))
+                    intersect_count++;
+                if(intervals[i].containsInterval(intervals[j]))
+                    contains_count++;
+            }
+        }
+        System.out.println("Intersect count "+intersect_count);
+        System.out.println("Contains count "+contains_count);
+    }
+
+
+public class MyInterval2D extends Interval2D
+{
+    /**
+     * Initializes a two-dimensional interval.
+     *
+     * @param x the one-dimensional interval of x-coordinates
+     * @param y the one-dimensional interval of y-coordinates
+     */
+
+    private Interval1D x1,y1;
+
+    public MyInterval2D(Interval1D x, Interval1D y) {
+        super(x, y);
+        x1=x;
+        y1=y;
+    }
+    public boolean containsInterval(MyInterval2D otherInterval){
+
+        return this.x1.min()<=otherInterval.x1.min() && this.x1.max()>=otherInterval.x1.max()  && this.y1.min()<=otherInterval.y1.min() && this.y1.max()>=otherInterval.y1.max();
+
+            }
+}
