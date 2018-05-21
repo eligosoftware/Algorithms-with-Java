@@ -1,0 +1,23 @@
+  public static void main(String[] args) {
+
+        int N =Integer.parseInt(args[0]);
+        ArrayList<Point2D> points=new ArrayList<>();
+        Point2D point2D;
+        double x,y,min=10;
+        for(int i=0;i<N;i++){
+           x= StdRandom.uniform();
+            y=StdRandom.uniform();
+
+            point2D=new Point2D(x,y);
+
+            for(Point2D p:points){
+                System.out.printf("Minimum distance %7.5f, current distance %7.5f \n",min,p.distanceTo(point2D));
+                if(min>p.distanceTo(point2D))
+                    min=p.distanceTo(point2D);
+            }
+            points.add(point2D);
+
+
+        }
+        System.out.println(min);
+    }
