@@ -1,0 +1,9 @@
+String string1="ACTGACG";
+        String string2="TGACGAC";
+        
+        if( string1.length()==string2.length()  && (string1+string1).indexOf(string2)>-1){
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("Problem");
+        }
