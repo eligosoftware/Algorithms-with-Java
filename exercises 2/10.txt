@@ -1,0 +1,66 @@
+import edu.princeton.cs.algs4.StdDraw;
+
+public class VisualCounter extends Counter {
+    /**
+     * Initializes a new counter starting at 0, with the given id.
+     *
+     * @param id the name of the counter
+     */
+    private int N,max,operation_count;
+
+    public VisualCounter(String id, int N, int max) {
+        super(id);
+        this.N=N;
+        this.max=max;
+
+        StdDraw.setPenRadius(.005);
+        StdDraw.setScale(0,this.N);
+    }
+
+    @Override
+    public void increment() {
+        if(operation_count>N || super.tally()>max){
+            return;
+        }
+
+        operation_count++;
+        super.increment();
+        draw();
+    }
+    public void decrement() {
+
+        if(operation_count>N || super.tally()>max){
+            return;
+        }
+
+        operation_count++;
+        if(count>0)
+        count--;
+        draw();
+    }
+
+    private void draw(){
+
+        StdDraw.point(operation_count,tally());
+    }
+
+}
+
+public static void main(String[] args) {
+
+
+        int N=50;
+
+        boolean oper;
+        VisualCounter visualCounter=new VisualCounter("Visual counter",N,100);
+        for(int i=0;i<70;i++){
+
+            oper = StdRandom.uniform()>0.3;
+            if(oper)
+                visualCounter.increment();
+            else
+                visualCounter.decrement();
+
+        }
+
+    }

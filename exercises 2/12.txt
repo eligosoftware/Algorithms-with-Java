@@ -1,0 +1,82 @@
+package com.company;
+
+
+public class SmartDate extends Date {
+    public SmartDate(int m, int d, int y) {
+        super(m, d, y);
+
+
+        int[] days_in_month=new int[12];
+
+        days_in_month[0]=31;//jan
+        days_in_month[1]=y%100==0?(y%400==0?29:28):(y%4==0?29:28);//feb
+        days_in_month[2]=31;//mar
+        days_in_month[3]=30;//apr
+        days_in_month[4]=31;//may
+        days_in_month[5]=30;//jun
+        days_in_month[6]=31;//jul
+        days_in_month[7]=31;//aug
+        days_in_month[8]=30;//sep
+        days_in_month[9]=31;//oct
+        days_in_month[10]=30;//nov
+        days_in_month[11]=31;//dec
+
+        if(m<1 || m>12 || d>days_in_month[m-1] ||d<1||d>31||y<1)
+            throw new IllegalArgumentException("Incorrect date!");
+    }
+
+    @Override
+    public String toString() {
+
+        return dayOfWeek()+", "+month()+"/"+day()+"/"+year();
+    }
+
+    private String dayOfWeek(){
+        String[] daysOfWeek=new String[7];
+        daysOfWeek[0]="Sunday";
+        daysOfWeek[1]="Monday";
+        daysOfWeek[2]="Tuesday";
+        daysOfWeek[3]="Wednesday";
+        daysOfWeek[4]="Thursday";
+        daysOfWeek[5]="Friday";
+        daysOfWeek[6]="Sunday";
+
+
+        int month=(month()-2+12)%12;
+        if(month==0) month=12;
+        int year=year();
+        if(month>10) year--;
+        int year_beg=year/100;
+        int year_end=year%100;
+
+
+
+        return daysOfWeek[(int)(day()+(2.6*month-0.2)-2*year_beg+year_end+year_end/4+year_beg/4)%7];
+    }
+}
+
+package com.company;
+
+
+public class Date
+{
+    private final int value;
+    public Date(int m, int d, int y)
+    { value = y*512 + m*32 + d; }
+    public int month()
+    { return (value / 32) % 16; }
+    public int day()
+    { return value % 32; }
+    public int year()
+    { return value / 512; }
+    public String toString()
+    { return month() + "/" + day()
+            + "/" + year(); }
+}
+
+    public static void main(String[] args) {
+
+
+        SmartDate smdate=new SmartDate(5,31,2004);
+        System.out.println(smdate);
+    }
