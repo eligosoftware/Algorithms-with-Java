@@ -1,0 +1,122 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class BankAccount {
+    private String owner_name, account_no;
+    private Transaction lastTransaction ;
+
+    private Map<Transaction,Double> amount=new HashMap<>();
+
+    public BankAccount(String owner_name, String account_no) {
+        this.owner_name = owner_name;
+        this.account_no = account_no;
+    }
+
+    public void addTransaction(Transaction transaction){
+        double initial_amount=0;
+        if(lastTransaction!=null){
+            initial_amount= getAmountFor(lastTransaction);
+        }
+
+        amount.putIfAbsent(transaction,initial_amount-transaction.getWithdrawals()+transaction.getDeposits());
+        lastTransaction=transaction;
+    }
+
+    public double getAmountFor(Transaction transaction){
+        return amount.get(transaction);
+    }
+}
+
+package com.company;
+
+import java.util.Date;
+public class Transaction {
+    private Date date;
+    private String description;
+    private String ref_number;
+    private double withdrawals,deposits;
+    private BankAccount account;
+
+
+    public double getWithdrawals() {
+        return withdrawals;
+    }
+
+    public double getDeposits() {
+        return deposits;
+    }
+
+    public Transaction(BankAccount account,Date date, String description, String ref_number, double withdrawals, double deposits) {
+        this.date = date;
+        this.description = description;
+        this.ref_number = ref_number;
+        this.withdrawals = withdrawals;
+        this.deposits = deposits;
+        this.account=account;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date +
+                ", description='" + description + '\'' +
+                ", ref_number='" + ref_number + '\'' +
+                ", withdrawals=" + withdrawals +
+                ", deposits=" + deposits +
+                ", balance=" + account.getAmountFor(this)+
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Transaction that = (Transaction) o;
+
+        if (Double.compare(that.withdrawals, withdrawals) != 0) return false;
+        if (Double.compare(that.deposits, deposits) != 0) return false;
+        if (!date.equals(that.date)) return false;
+        if (!description.equals(that.description)) return false;
+        if (!ref_number.equals(that.ref_number)) return false;
+        return account.equals(that.account);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = date.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + ref_number.hashCode();
+        temp = Double.doubleToLongBits(withdrawals);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(deposits);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + account.hashCode();
+        return result;
+    }
+}
+
+
+ public static void main(String[] args) {
+
+
+        BankAccount account=new BankAccount("Jack Daniels","ASZ1510215");
+        Transaction transaction1=new Transaction(account,new Date(2014,1,1),"ACsdssdvdfvdfv","AZ314",0,500);
+        account.addTransaction(transaction1);
+        Transaction transaction2=new Transaction(account,new Date(2014,3,16),"dfbfgbfgb","AZ377",100,0);
+        account.addTransaction(transaction2);
+        Transaction transaction3=new Transaction(account,new Date(2014,8,4),"fgbfgb fg fgb ","AZ412",50,0);
+        account.addTransaction(transaction3);
+        Transaction transaction4=new Transaction(account,new Date(2015,2,20),"fgbdfbbrtbrt","AZ489",0,200);
+        account.addTransaction(transaction4);
+        Transaction transaction5=new Transaction(account,new Date(2015,8,6),"brbrt rtrt rtvrtv","AZ586",71,0);
+        account.addTransaction(transaction5);
+        Transaction transaction6=new Transaction(account,new Date(2016,10,18),"rtg54 g rt rtg rt","AZ678",100,0);
+        account.addTransaction(transaction6);
+        Transaction transaction7=new Transaction(account,new Date(2017,6,14),"rtg rtg rtgr ","AZ822",21,14);
+        account.addTransaction(transaction7);
+
+        System.out.println(transaction7);
+    }
