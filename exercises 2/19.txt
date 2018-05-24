@@ -1,0 +1,33 @@
+package com.company;
+
+
+public class Date
+{
+    private final int value;
+    public Date(int m, int d, int y)
+    { value = y*512 + m*32 + d; }
+
+    public Date(String init_value)
+    {
+        String[] values=init_value.split("/");
+        if(values.length==1)
+            values=init_value.split("-");
+        if(values.length==1)
+            values=init_value.split(".");
+
+        int y=values.length>=1?Integer.parseInt(values[0]):0;
+        int m=values.length>=2?Integer.parseInt(values[1]):0;
+        int d=values.length>=3?Integer.parseInt(values[2]):0;
+
+        value = y*512 + m*32 + d; }
+
+    public int month()
+    { return (value / 32) % 16; }
+    public int day()
+    { return value % 32; }
+    public int year()
+    { return value / 512; }
+    public String toString()
+    { return month() + "/" + day()
+            + "/" + year(); }
+}
