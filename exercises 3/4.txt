@@ -1,0 +1,47 @@
+1.3.4
+ public static void main(String[] args) {
+        // write your code here
+
+       // String input="[()]{}{[()()]()}";
+         String input="[()]{}{[()()](";
+
+        //String input = "[(])";
+        Map<Character,Integer> map=new HashMap<>();
+        map.put('[',1);
+        map.put('{',2);
+        map.put('(',3);
+        map.put(']',-1);
+        map.put('}',-2);
+        map.put(')',-3);
+
+
+
+        Stack<Character> stack=new Stack<>(input.length());
+int result=0;
+Character inStack;
+        for(int i=0;i<input.length();i++){
+            Character p= input.charAt(i);
+
+            if(p.equals('[') || p.equals('{') || p.equals('(')){
+                stack.push(p);
+                result+=map.get(p);
+
+            }
+            else if(p.equals(']') || p.equals('}') || p.equals(')'))
+            {
+               inStack= stack.pop();
+               result-=map.get(inStack);
+               if(map.get(inStack)+map.get(p)!=0)
+               {
+                   System.out.println(false);
+                   return;
+               }
+            }
+
+        }
+
+        System.out.println((result==0)?true:false);
+
+
+
+    }
